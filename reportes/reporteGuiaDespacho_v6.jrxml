@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteGuiaDespacho" language="groovy" pageWidth="595" pageHeight="637" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4a81391b-acd1-4633-b8ad-12b5b31e65a2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="guia1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="guia2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[99999]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/henrypb/i-reportes/despacho/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select C1_NCF as nroCtrlFiscal,
+       C1_GUIA as guia,
+       C1_FECHA_GUIA as fechaGuia,
+       C1_CODIGO_CLIENTE as codCliente,
+       NOMBRE_CLI_PROV as nombreCliente,
+       CEDULA as rif,
+       DIRECCION1 as dirFiscal1,
+       DIRECCION2 as dirFiscal2,
+       DIRECCION3 as dirFiscal3,
+       C1_ENTREGA1 as dirEntrega1,
+       C1_ENTREGA2 as dirEntrega2,
+       C1_ENTREGA3 as dirEntrega3,
+       C1_ORDEN1 as ordenFab1,
+       C1_ORDEN2 as ordenFab2,
+       C1_FACTURA as factura,
+       C1_PEDIDO1 as pedido1,
+       C1_PEDIDO2 as pedido2,
+       C1_PEDIDO3 as pedido3,
+       C1_PEDIDO4 as pedido4,
+       C1_TIPO_CAMION as tipoCamion,
+       C1_NO_EJES as nroEjes,
+       C1_PLACA_CHUTO as placaChuto,
+       C1_PLACA_BATEA as placaBatea,
+       C1_COD_TRANSP as codTransporte,
+       subStr( C1_NOMBRE_CHOFER,1,20 ) as chofer,
+       C1_CI_CHOFER as ciChofer
+from   GUIAS01_DAT, CXCD_DAT
+where  C1_GUIA between $P{guia1} and $P{guia2}
+and    C1_CODIGO_CLIENTE = CODIGO
+order  by C1_GUIA, C1_FECHA_GUIA]]>
+	</queryString>
+	<field name="NROCTRLFISCAL" class="java.lang.String"/>
+	<field name="GUIA" class="java.lang.String"/>
+	<field name="FECHAGUIA" class="java.sql.Timestamp"/>
+	<field name="CODCLIENTE" class="java.lang.String"/>
+	<field name="NOMBRECLIENTE" class="java.lang.String"/>
+	<field name="RIF" class="java.lang.String"/>
+	<field name="DIRFISCAL1" class="java.lang.String"/>
+	<field name="DIRFISCAL2" class="java.lang.String"/>
+	<field name="DIRFISCAL3" class="java.lang.String"/>
+	<field name="DIRENTREGA1" class="java.lang.String"/>
+	<field name="DIRENTREGA2" class="java.lang.String"/>
+	<field name="DIRENTREGA3" class="java.lang.String"/>
+	<field name="ORDENFAB1" class="java.lang.String"/>
+	<field name="ORDENFAB2" class="java.lang.String"/>
+	<field name="FACTURA" class="java.lang.String"/>
+	<field name="PEDIDO1" class="java.lang.String"/>
+	<field name="PEDIDO2" class="java.lang.String"/>
+	<field name="PEDIDO3" class="java.lang.String"/>
+	<field name="PEDIDO4" class="java.lang.String"/>
+	<field name="TIPOCAMION" class="java.lang.String"/>
+	<field name="NROEJES" class="java.lang.String"/>
+	<field name="PLACACHUTO" class="java.lang.String"/>
+	<field name="PLACABATEA" class="java.lang.String"/>
+	<field name="CODTRANSPORTE" class="java.lang.String"/>
+	<field name="CHOFER" class="java.lang.String"/>
+	<field name="CICHOFER" class="java.lang.String"/>
+	<group name="GUIA">
+		<groupExpression><![CDATA[$F{GUIA}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="1" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="72" splitType="Stretch">
+			<componentElement>
+				<reportElement x="349" y="12" width="200" height="50" uuid="e904fe74-4f01-4abb-b62f-14ba51bd11f9"/>
+				<jr:Interleaved2Of5 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
+					<jr:codeExpression><![CDATA[$F{GUIA}]]></jr:codeExpression>
+				</jr:Interleaved2Of5>
+			</componentElement>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="223" splitType="Stretch">
+			<staticText>
+				<reportElement x="17" y="15" width="73" height="20" uuid="2f314abc-c197-4e2e-ae12-4b98e2ece7bc"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nro. GUIA: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="97" y="15" width="100" height="20" uuid="fe051285-429f-4722-b3d3-08443ed55daf"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GUIA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="332" y="18" width="57" height="20" uuid="68ae8970-39d2-43f2-afda-ac51182b2e17"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fecha : ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="393" y="18" width="83" height="20" uuid="49f945d7-d2fe-4e0b-9103-dcc3044e9aef"/>
+				<textElement>
+					<font size="10" isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FECHAGUIA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="17" y="30" width="311" height="17" uuid="0a1226ec-f577-45b9-8cf6-4251d0518de7"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRECLIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="393" y="33" width="83" height="17" uuid="183ecdc1-aa48-4a58-b5d5-7381bcd5e466"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RIF}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="332" y="33" width="57" height="17" uuid="56f836b4-0e4e-44e2-966b-148c15db17f8"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[RIF/C.I. NRO.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="49" width="251" height="14" uuid="492cafa6-c0b9-45bd-8b56-92806185daec"/>
+				<textElement>
+					<font size="11" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCION FISCAL: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="49" width="233" height="14" uuid="2ee61e77-5636-401e-bec0-d396c0e9760b"/>
+				<textElement>
+					<font size="11" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCION ENTREGA: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="26" y="65" width="276" height="15" uuid="36450861-e409-4776-85af-403a2c80ca89"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DIRFISCAL1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="26" y="82" width="276" height="15" uuid="885f87bb-6147-4d2f-b94e-2d4ad2dfb573"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DIRFISCAL2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="26" y="99" width="276" height="15" uuid="55a365a2-ab68-447c-8e1a-044780d94806"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DIRFISCAL3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="307" y="65" width="242" height="15" uuid="6bd395ce-6c03-45d9-b64a-b08f196457ac"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DIRENTREGA1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="307" y="82" width="242" height="15" uuid="a834be70-c9fe-4203-b21d-015e83912f81"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DIRENTREGA2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="307" y="99" width="242" height="15" uuid="1d770fde-cd4b-44a0-9fba-4599cc5779c4"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DIRENTREGA3}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="26" y="136" width="86" height="14" uuid="d87d647c-dd70-4624-b774-e0f4c87696f0"/>
+				<textElement rotation="None">
+					<font size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Cod. Cliente : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="199" y="136" width="71" height="14" uuid="ae42877b-8970-41c8-8056-6935d83952b2"/>
+				<textElement>
+					<font size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Orden Fab..:  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="149" width="86" height="14" uuid="dcbc6ec4-214b-439c-9a57-e248780d0171"/>
+				<textElement>
+					<font size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Pedidos(s) nro.: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="120" y="135" width="70" height="14" uuid="bb705c84-f20c-47a8-b112-a2ce6f3e3469"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CODCLIENTE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="269" y="131" width="39" height="20" uuid="ae25d259-62be-4f7a-b3b0-818c4a08ce2e"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ORDENFAB1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="316" y="131" width="31" height="20" uuid="06e14417-dcc0-4b29-8aa5-25cdc77730a5"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ORDENFAB2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="120" y="149" width="32" height="14" uuid="102e1f5f-95b4-492c-9e90-8c1251a2bc0a"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PEDIDO1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="152" y="147" width="38" height="14" uuid="35aa8c25-8813-43b9-a5c1-aad9cde747a2"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PEDIDO2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="197" y="149" width="38" height="14" uuid="78efddfc-8cce-46db-8ddc-25a367235ee1"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PEDIDO3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="243" y="149" width="38" height="14" uuid="83c4b216-cbb8-4ec6-8f1e-d69c0bbe7f6a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PEDIDO4}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="2" y="221" width="553" height="1" uuid="040efafe-a168-44f7-b2e4-f615af8ea80c"/>
+			</line>
+			<staticText>
+				<reportElement x="27" y="177" width="75" height="14" uuid="28f3c6e6-b834-4bfc-9c8c-427016ff5bf6"/>
+				<textElement>
+					<font size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Tipo Camion : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="190" width="75" height="14" uuid="0d993d24-99a1-46f0-afcc-6fcd4c036bd0"/>
+				<textElement>
+					<font size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Nro Ejes : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="112" y="177" width="85" height="14" uuid="1e44e9b2-e47d-4d84-a0e1-0192e7766ac3"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TIPOCAMION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="97" y="190" width="100" height="14" uuid="7a03a62f-594b-4821-a121-9d7ed2266ffb"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NROEJES}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="200" y="177" width="75" height="14" uuid="7ec6bb0c-3ac9-42c3-9644-2b3f5372288e"/>
+				<textElement>
+					<font size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Placa Chuto : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="369" y="177" width="75" height="14" uuid="80018870-fa3c-4e38-8c11-d28749cc051a"/>
+				<textElement>
+					<font size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Placa Batea : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="202" y="190" width="100" height="14" uuid="e3f164b6-101f-4263-b1ad-798704996470"/>
+				<textElement>
+					<font size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Cod Transporte : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="203" width="100" height="14" uuid="8c4a6d44-4c15-495e-8cf7-64fec4502b31"/>
+				<textElement>
+					<font size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Nombre conductor : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="346" y="203" width="100" height="14" uuid="089683c9-68e2-4505-8560-3a6e64f79b40"/>
+				<textElement>
+					<font size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[C.I. Conductor  : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="293" y="177" width="76" height="20" uuid="49240bac-4669-4ba7-be3c-0c6ef3bc0cd7"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PLACACHUTO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="444" y="177" width="65" height="20" uuid="9e7d64ff-a9bc-479c-9f8a-7e156f289ea2"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PLACABATEA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="293" y="190" width="96" height="20" uuid="2155f767-0996-4e1f-93d4-f0f23d937061"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CODTRANSPORTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="136" y="203" width="157" height="17" uuid="618c6b04-c4b8-414d-98b4-11127d6c8fa0"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CHOFER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="436" y="203" width="113" height="17" uuid="fbac8c84-7285-4aa8-bb6e-bac95b7762e8"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CICHOFER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="126" width="183" height="15" uuid="859a1650-6fcc-42b4-914b-f6c0b5bab1ab"/>
+				<textElement rotation="None">
+					<font size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[informacion de VENTAS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="163" width="180" height="15" uuid="97d044cb-4039-4921-8b52-65842254c85c"/>
+				<textElement rotation="None">
+					<font size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[informacion del TRANSPORTE:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="38" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="553" height="35" uuid="66accf74-2ac9-497e-b471-25e9d5d079a6"/>
+				<subreportParameter name="nro_guia">
+					<subreportParameterExpression><![CDATA[$F{GUIA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["./reportes/reporteGuiaDespacho_v2_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="151">
+			<line>
+				<reportElement x="90" y="7" width="100" height="1" uuid="e5023f57-9754-4aba-87c5-c290e1d7d1a2"/>
+			</line>
+			<line>
+				<reportElement x="220" y="8" width="100" height="1" uuid="c11c9ad1-8f30-4c47-8b5f-1d02e8c833e4"/>
+			</line>
+			<line>
+				<reportElement x="356" y="9" width="100" height="1" uuid="a312cdde-cc04-4fb1-aea5-485a31319e08"/>
+			</line>
+			<staticText>
+				<reportElement x="81" y="12" width="120" height="20" uuid="7a6cff4d-6495-4d17-aa2a-657d608172d5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced"/>
+				</textElement>
+				<text><![CDATA[Aceptacion Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="12" width="100" height="20" uuid="52c682cb-3dc2-4818-9471-d455ebe2d524"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced"/>
+				</textElement>
+				<text><![CDATA[Transportista]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="358" y="12" width="100" height="20" uuid="ee82a759-5f43-42dd-b170-7869ddfc6d23"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced"/>
+				</textElement>
+				<text><![CDATA[Despachador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="69" y="29" width="404" height="52" uuid="fbf292f0-0480-4f8d-bffe-bcc396a55eff"/>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<text><![CDATA[Guia habilitada para el traslado de mercancia. La descarga de la mercancia es por cuenta y riesgo del COMPRADOR.
+En la Factura se establecen las condiciones de garantia para los productos. Cualquier reclamo debe ser notificado de inmediato a DESICA.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="232" y="100" width="207" height="15" uuid="0bf06d4e-d5a5-449d-bbe8-f62f1dfc6885"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SIN DERECHO A CREDITO FISCAL.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Transparent" x="57" y="27" width="452" height="52" uuid="290178ba-9103-4e27-8286-b22f8954b22f"/>
+			</rectangle>
+		</band>
+	</pageFooter>
+</jasperReport>

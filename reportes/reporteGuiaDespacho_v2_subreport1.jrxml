@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteGuiaDespacho_v2_subreport1" pageWidth="570" pageHeight="555" orientation="Landscape" columnWidth="570" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="f3bd5380-e8de-4f78-937c-bc9e81fba332">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nro_guia" class="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[select   C2_GUIA as nroGuia,
+                  C2_ITEM_NO as itemNo,
+                  C2_CODIGO as codItem,
+                  C2_TIPO as tipo,
+                  C2_DESCRIPCION as descripcion,
+                  C2_PESO as peso,
+                  C2_UNIDADES as cantidad,
+                  C2_PRECIO as precio,
+                  ( C2_PESO*C2_UNIDADES ) as pesoGuia,
+                  ( C2_PRECIO*(decode(C2_FXUNIDAD,'X',C2_UNIDADES,1.00))*(decode(C2_FXPESO,'X',C2_PESO,1.00) ) ) as total
+from      GUIAS02_DAT
+where C2_GUIA = $P{nro_guia}
+order  by C2_ITEM_NO, C2_CODIGO]]>
+	</queryString>
+	<field name="NROGUIA" class="java.lang.String"/>
+	<field name="ITEMNO" class="java.math.BigDecimal"/>
+	<field name="CODITEM" class="java.lang.String"/>
+	<field name="TIPO" class="java.lang.String"/>
+	<field name="DESCRIPCION" class="java.lang.String"/>
+	<field name="PESO" class="java.math.BigDecimal"/>
+	<field name="CANTIDAD" class="java.math.BigDecimal"/>
+	<field name="PRECIO" class="java.math.BigDecimal"/>
+	<field name="PESOGUIA" class="java.math.BigDecimal"/>
+	<field name="TOTAL" class="java.math.BigDecimal"/>
+	<variable name="sumMonto" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL}]]></variableExpression>
+	</variable>
+	<variable name="sumPeso" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{PESOGUIA}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="14" width="18" height="14" uuid="5822c083-420a-4e87-99ce-cf6e6f624b3d"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="18" y="14" width="20" height="14" uuid="882b7c82-7025-4d10-9ef4-28e9bda9f578"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="45" y="14" width="251" height="14" uuid="f7c428b7-ca6c-4605-8db5-3340caf97d90"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="351" y="1" width="33" height="26" uuid="3411430e-2551-4504-bc0a-9502f3d8ee2c"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cant Item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="444" y="1" width="53" height="26" uuid="e67cdfde-d2e8-41e2-ad75-f63da1ee08aa"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Peso Guia kg]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="512" y="14" width="41" height="14" uuid="4c4ef13e-fe42-41ee-ace4-3a502775b94a"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="31" width="553" height="1" uuid="136cad9c-65fd-4c11-8ea5-088358661b74"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="304" y="14" width="42" height="14" uuid="15c3ec8d-f834-4b1a-ac83-bb9610922753"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Peso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="384" y="14" width="57" height="14" uuid="f89e4ae7-4e2d-4df0-b75e-0753e16e495a"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="17" height="13" uuid="385e543c-b207-4598-9b02-f25bcdf4a8eb"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ITEMNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="20" y="1" width="20" height="13" uuid="4d823aa0-ab34-43a0-b3a0-d76e83702967"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TIPO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="45" y="1" width="271" height="13" uuid="cd507de4-2858-4338-9a18-f6be05df48b3"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.000">
+				<reportElement x="304" y="1" width="42" height="13" uuid="272b052b-4bad-426b-af38-1baa801f3de2"/>
+				<textElement textAlignment="Right">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PESO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="384" y="1" width="57" height="13" uuid="5bcda385-fcf6-4995-a619-b96db8f67c12"/>
+				<textElement textAlignment="Right">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PRECIO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="444" y="1" width="53" height="13" uuid="ceb60309-6096-448d-9a84-8cb096431ea8"/>
+				<textElement textAlignment="Right">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PESOGUIA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="351" y="1" width="33" height="13" uuid="45fa1523-594c-481d-a874-6ca2a4d6fe85"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CANTIDAD}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="501" y="1" width="55" height="13" uuid="1638277c-58e0-428d-b280-a578562fbe2f"/>
+				<textElement textAlignment="Right">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="35" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement mode="Opaque" x="501" y="11" width="55" height="17" uuid="1239bbee-9be4-4b46-b7da-a4926c70e027"/>
+				<textElement textAlignment="Right" markup="styled">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumMonto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="441" y="11" width="56" height="17" uuid="bd0b7454-308d-4e8d-a2d9-e2f49df68a46"/>
+				<textElement textAlignment="Right">
+					<font size="11" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumPeso}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="435" y="3" width="121" height="1" uuid="88901284-6527-46a7-8d79-8079b3ae7b14"/>
+			</line>
+			<line>
+				<reportElement x="435" y="7" width="121" height="1" uuid="444abf52-962b-4bb5-a989-1924c92603a2"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>
